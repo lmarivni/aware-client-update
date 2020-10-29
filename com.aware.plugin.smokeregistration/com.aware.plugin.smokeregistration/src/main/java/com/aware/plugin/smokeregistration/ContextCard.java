@@ -48,6 +48,7 @@ public class ContextCard implements IContextCard {
             @Override
             public void onClick(View v) {
                 Intent registerSmokeEvent = new Intent(context, DateAndTimePicker.class);
+                registerSmokeEvent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(registerSmokeEvent);
             }
         });
