@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ik heb gerookt"
+        android:id="@+id/register_smoking_event"
+        android:textColor="#FFF"
+        android:background="#33B5E5"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp" />
+
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/smoking_events_list"
+        android:layout_below="@+id/register_smoking_event"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:fastScrollEnabled="false"
+        android:fastScrollAlwaysVisible="false" />
+</RelativeLayout>

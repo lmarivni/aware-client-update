@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.aware.plugin.smokeregistration">
+
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+
+    <application>
+
+        <!-- Use a hardcoded label string on the service
+        to keep the name of the original plugin if added as a library to another -->
+        <service
+            android:name="com.aware.plugin.smokeregistration.Plugin"
+            android:exported="true"
+            android:label="AWARE: Plugin Smoke Registration" />
+
+        <activity
+            android:name="com.aware.plugin.smokeregistration.DateAndTimePicker"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.Aware"
+        />
+        <!--adaption to theme??-->
+
+        <activity
+            android:name="com.aware.plugin.smokeregistration.Settings"
+            android:exported="true" />
+
+        <!-- Keep the ${applicationId} so there are no conflicts when merging this plugin as a library for reuse. Update the plugin_template string in values -->
+        <provider
+            android:name="com.aware.plugin.smokeregistration.Provider"
+            android:authorities="$com.aware.plugin.smokeregistration.provider.smokeregistration"
+            android:exported="true"
+            android:label="@string/plugin_template"
+            android:readPermission="com.aware.READ_CONTEXT_DATA"
+            android:writePermission="com.aware.WRITE_CONTEXT_DATA" />
+
+        <service
+            android:name="com.aware.plugin.smokeregistration.syncadapters.Template_Sync"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_template" />
+        </service>
+
+    </application>
+</manifest>
