@@ -36,3 +36,6 @@ project(':com.aware.plugin.sensortag').projectDir = new File('com.aware.plugin.s
 
 include ':com.aware.plugin.sentimental'
 project(':com.aware.plugin.sentimental').projectDir = new File('com.aware.plugin.sentimental/com.aware.plugin.sentimental.lib')
+
+include ':com.aware.plugin.smokeregistration'
+project(':com.aware.plugin.smokeregistration').projectDir = new File('com.aware.plugin.smokeregistration/com.aware.plugin.smokeregistration.lib')
