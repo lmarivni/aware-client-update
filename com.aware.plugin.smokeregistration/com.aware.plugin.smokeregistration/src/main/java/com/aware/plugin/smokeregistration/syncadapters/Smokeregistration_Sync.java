@@ -14,7 +14,7 @@ import com.aware.syncadapters.AwareSyncAdapter;
  *
  * This class tells what data is synched to the server. The Uri[] needs to be in the same order as the database tables and tables fields (due to the index in the array).
  */
-public class Template_Sync extends Service {
+public class Smokeregistration_Sync extends Service {
     private AwareSyncAdapter sSyncAdapter = null;
     private static final Object sSyncAdapterLock = new Object();
 

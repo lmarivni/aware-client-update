@@ -19,7 +19,7 @@
             android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.Aware"
+            android:theme="@style/Theme.AppCompat.Dialog"
         />
         <!--adaption to theme??-->
 
@@ -30,21 +30,21 @@
         <!-- Keep the ${applicationId} so there are no conflicts when merging this plugin as a library for reuse. Update the plugin_template string in values -->
         <provider
             android:name="com.aware.plugin.smokeregistration.Provider"
-            android:authorities="$com.aware.plugin.smokeregistration.provider.smokeregistration"
+            android:authorities="${applicationId}.provider.smokeregistration"
             android:exported="true"
-            android:label="@string/plugin_template"
+            android:label="@string/plugin_smokeregistration"
             android:readPermission="com.aware.READ_CONTEXT_DATA"
             android:writePermission="com.aware.WRITE_CONTEXT_DATA" />
 
         <service
-            android:name="com.aware.plugin.smokeregistration.syncadapters.Template_Sync"
+            android:name="com.aware.plugin.smokeregistration.syncadapters.Smokeregistration_Sync"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
             <meta-data
                 android:name="android.content.SyncAdapter"
-                android:resource="@xml/sync_template" />
+                android:resource="@xml/sync_smokeregistration" />
         </service>
 
     </application>

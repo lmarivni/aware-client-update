@@ -26,7 +26,7 @@ public class ContextCard implements IContextCard {
     @Override
     public View getContextCard(final Context context) {
         //Load card layout
-        View card = LayoutInflater.from(context).inflate(R.layout.card, null);
+        View card = LayoutInflater.from(context).inflate(R.layout.smokeregistration_card, null);
 
         final Button register_smoking_event = (Button) card.findViewById(R.id.register_smoking_event);
 
