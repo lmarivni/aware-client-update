@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class Provider extends ContentProvider {
     public static String AUTHORITY = "com.aware.plugin.smokeregistration.provider.smokeregistration";
 
-    public static final int DATABASE_VERSION = 2; //increase this if you make changes to the database structure, i.e., rename columns, etc.
+    public static final int DATABASE_VERSION = 4; //increase this if you make changes to the database structure, i.e., rename columns, etc.
 
     public static final String DATABASE_NAME = "smoke_events.db"; //the database filename
 
@@ -79,8 +79,8 @@ public class Provider extends ContentProvider {
             Smoke_Events._ID + " integer primary key autoincrement," +
                     Smoke_Events.TIMESTAMP + " real default 0," +
                     Smoke_Events.DEVICE_ID + " text default ''," +
-                    Smoke_Events.DATE + "real default 0," +
-                    Smoke_Events.TIME + "real default 0";
+                    Smoke_Events.DATE + " text default ''," +
+                    Smoke_Events.TIME + " text default ''";
 
 //    private static final String DB_TBL_SMOKE_EVENTS_DATA_FIELDS =
 //            Smoke_Events_Data._ID + " integer primary key autoincrement," +
