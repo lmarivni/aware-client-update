@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class Provider extends ContentProvider {
     public static String AUTHORITY = "com.aware.plugin.smokeregistration.provider.smokeregistration";
 
-    public static final int DATABASE_VERSION = 1; //increase this if you make changes to the database structure, i.e., rename columns, etc.
+    public static final int DATABASE_VERSION = 2; //increase this if you make changes to the database structure, i.e., rename columns, etc.
 
     public static final String DATABASE_NAME = "smoke_events.db"; //the database filename
 
@@ -56,8 +56,8 @@ public class Provider extends ContentProvider {
      */
     public static final class Smoke_Events implements AWAREColumns {
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + DB_TBL_SMOKE_EVENTS);
-        public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.${applicationId}.provider.smoke_events";
-        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.${applicationId}.provider.smoke_events";
+        public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.aware.plugin.smokeregistration";
+        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.aware.plugin.smokeregistration";
 
         public static final String DATE = "date";
         public static final String TIME = "time";
@@ -80,7 +80,7 @@ public class Provider extends ContentProvider {
                     Smoke_Events.TIMESTAMP + " real default 0," +
                     Smoke_Events.DEVICE_ID + " text default ''," +
                     Smoke_Events.DATE + "real default 0," +
-                    Smoke_Events.TIME + "real default 0,";
+                    Smoke_Events.TIME + "real default 0";
 
 //    private static final String DB_TBL_SMOKE_EVENTS_DATA_FIELDS =
 //            Smoke_Events_Data._ID + " integer primary key autoincrement," +
@@ -90,7 +90,7 @@ public class Provider extends ContentProvider {
 //                    Smoke_Events_Data.TIME + "real default 0,";
 
     public static final String[] TABLES_FIELDS = {
-            DB_TBL_SMOKE_EVENTS_FIELDS,
+            DB_TBL_SMOKE_EVENTS_FIELDS
 //            DB_TBL_SMOKE_EVENTS_DATA_FIELDS
     };
 
@@ -124,7 +124,7 @@ public class Provider extends ContentProvider {
     public boolean onCreate() {
         //This is a hack to allow providers to be reusable in any application/plugin by making the authority dynamic using the package name of the parent app
 
-        AUTHORITY = getAuthority(getContext());
+        AUTHORITY = getContext().getPackageName() + "provider.smokeregistration";
 
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         sUriMatcher.addURI(AUTHORITY, DATABASE_TABLES[0], SE_DIR);
