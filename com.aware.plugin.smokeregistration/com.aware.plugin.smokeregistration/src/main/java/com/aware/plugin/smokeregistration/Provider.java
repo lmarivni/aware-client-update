@@ -124,7 +124,7 @@ public class Provider extends ContentProvider {
     public boolean onCreate() {
         //This is a hack to allow providers to be reusable in any application/plugin by making the authority dynamic using the package name of the parent app
 
-        AUTHORITY = getContext().getPackageName() + "provider.smokeregistration";
+        AUTHORITY = getContext().getPackageName() + ".provider.smokeregistration";
 
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         sUriMatcher.addURI(AUTHORITY, DATABASE_TABLES[0], SE_DIR);
