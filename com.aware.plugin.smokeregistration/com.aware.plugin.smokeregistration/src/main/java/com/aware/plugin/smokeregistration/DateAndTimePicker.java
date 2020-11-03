@@ -117,7 +117,7 @@ public class DateAndTimePicker extends FragmentActivity {
             int year = cldr.get(Calendar.YEAR);
             int month = cldr.get(Calendar.MONTH) + 1;
             int day = cldr.get(Calendar.DAY_OF_MONTH);
-            date.setText(day + "/" + month + "/" + year);
+            date.setText(year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day));
         }
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +128,7 @@ public class DateAndTimePicker extends FragmentActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                 month = month+1;
-                                date.setText(dayOfMonth + "/" + month + "/" + year);
+                                date.setText(year + "-" + String.format("%02d", month) + "-" + String.format("%02d", dayOfMonth));
                             }
                         },  cldr.get(Calendar.YEAR), cldr.get(Calendar.MONTH), cldr.get(Calendar.DAY_OF_MONTH));
                 date_picker.show();

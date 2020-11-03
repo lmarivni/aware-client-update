@@ -15,6 +15,11 @@ import android.widget.TextView;
 
 import com.aware.utils.IContextCard;
 
+import java.text.ParseException;
+import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 public class ContextCard implements IContextCard {
 
     public ContextCard() {
