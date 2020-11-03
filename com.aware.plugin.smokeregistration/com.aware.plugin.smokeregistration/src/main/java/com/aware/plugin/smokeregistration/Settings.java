@@ -14,14 +14,14 @@ public class Settings  extends PreferenceActivity implements SharedPreferences.O
     /**
      * Activate/deactivate plugin
      */
-    public static final String STATUS_PLUGIN_SMOKE_REGISTRATION = "status_plugin_smoke_registration";
+    public static final String STATUS_PLUGIN_SMOKE_REGISTRATION = "status_plugin_smokeregistration";
 
     private static CheckBoxPreference active;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+        addPreferencesFromResource(R.xml.preferences_smokeregistration);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
     }
