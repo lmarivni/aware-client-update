@@ -44,7 +44,7 @@ public class ContextCard implements IContextCard {
         smoking_events.setAdapter(adapter);
 
         ViewGroup.LayoutParams params = smoking_events.getLayoutParams();
-        params.height = 400;
+        params.height = 800;
         smoking_events.setLayoutParams(params);
 
         register_smoking_event.setOnClickListener(new View.OnClickListener() {
