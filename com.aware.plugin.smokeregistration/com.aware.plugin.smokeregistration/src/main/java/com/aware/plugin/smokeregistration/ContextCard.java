@@ -95,8 +95,9 @@ public class ContextCard implements IContextCard {
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContext.getContentResolver().delete(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), Provider.Smoke_Events.TIMESTAMP + " LIKE '" + labeltxt + "'", null);
-                    adapter.changeCursor(mContext.getContentResolver().query(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.TIMESTAMP + " ASC"));
+                    final String lines[] = labeltxt.split("\n");
+                    mContext.getContentResolver().delete(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), Provider.Smoke_Events.DATE + " LIKE '" + lines[0] + "' AND " + Provider.Smoke_Events.TIME + " LIKE '" + lines[1] + "'", null);
+                    adapter.changeCursor(mContext.getContentResolver().query(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.DATE + " DESC, " + Provider.Smoke_Events.TIME + " DESC"));
                 }
             });
         }
