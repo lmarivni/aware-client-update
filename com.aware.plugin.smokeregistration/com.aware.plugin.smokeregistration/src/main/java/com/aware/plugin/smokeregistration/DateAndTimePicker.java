@@ -26,13 +26,16 @@ public class DateAndTimePicker extends FragmentActivity {
     Button btnOK, btnCancel;
     EditText time, date;
 
-    static String loadedLabel = "";
+    static String loadedDate = "";
+    static String loadedTime = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getIntent() != null && getIntent().getStringExtra(EXTRA_LABEL) != null && getIntent().getStringExtra(EXTRA_LABEL).length() > 0) {
-            loadedLabel = getIntent().getStringExtra(EXTRA_LABEL);
+            final String lines[] = getIntent().getStringExtra(EXTRA_LABEL).split("\n");
+            loadedDate = lines[0];
+            loadedTime = lines[1];
         }
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_register_smoking_event);
@@ -61,12 +64,16 @@ public class DateAndTimePicker extends FragmentActivity {
 
         time = (EditText) findViewById(R.id.editTime);
         final Calendar cldr = Calendar.getInstance();
-        int hour = cldr.get(Calendar.HOUR_OF_DAY);
-        int minutes = cldr.get(Calendar.MINUTE);
-        if(minutes < 10){
-            time.setText(hour + ":0" + minutes);
-        }else {
-            time.setText(hour + ":" + minutes);
+        if (loadedTime.length() > 0) {
+            time.setText(loadedTime);
+        } else {
+            int hour = cldr.get(Calendar.HOUR_OF_DAY);
+            int minutes = cldr.get(Calendar.MINUTE);
+            if(minutes < 10){
+                time.setText(hour + ":0" + minutes);
+            }else {
+                time.setText(hour + ":" + minutes);
+            }
         }
         time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,10 +98,14 @@ public class DateAndTimePicker extends FragmentActivity {
         });
 
         date = (EditText) findViewById(R.id.editDate);
-        int year = cldr.get(Calendar.YEAR);
-        int month = cldr.get(Calendar.MONTH) + 1;
-        int day = cldr.get(Calendar.DAY_OF_MONTH);
-        date.setText(day + "/" + month + "/" + year);
+        if (loadedDate.length() > 0) {
+            date.setText(loadedDate);
+        } else {
+            int year = cldr.get(Calendar.YEAR);
+            int month = cldr.get(Calendar.MONTH) + 1;
+            int day = cldr.get(Calendar.DAY_OF_MONTH);
+            date.setText(day + "/" + month + "/" + year);
+        }
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
