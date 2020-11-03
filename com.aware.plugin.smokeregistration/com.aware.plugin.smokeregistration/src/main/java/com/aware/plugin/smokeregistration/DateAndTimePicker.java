@@ -74,9 +74,9 @@ public class DateAndTimePicker extends FragmentActivity {
         } else {
             int hour = cldr.get(Calendar.HOUR_OF_DAY);
             int minutes = cldr.get(Calendar.MINUTE);
-            if(minutes < 10){
+            if (minutes < 10) {
                 time.setText(hour + ":0" + minutes);
-            }else {
+            } else {
                 time.setText(hour + ":" + minutes);
             }
         }
@@ -91,10 +91,18 @@ public class DateAndTimePicker extends FragmentActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                if(sMinute < 10){
-                                    time.setText(sHour + ":0" + sMinute);
-                                }else {
-                                    time.setText(sHour + ":" + sMinute);
+                                if (sHour < 10) {
+                                    if (sMinute < 10) {
+                                        time.setText("0" + sHour + ":0" + sMinute);
+                                    } else {
+                                        time.setText("0" + sHour + ":" + sMinute);
+                                    }
+                                } else {
+                                    if (sMinute < 10) {
+                                        time.setText(sHour + ":0" + sMinute);
+                                    } else {
+                                        time.setText(sHour + ":" + sMinute);
+                                    }
                                 }
                             }
                         }, hour, minutes, true);
