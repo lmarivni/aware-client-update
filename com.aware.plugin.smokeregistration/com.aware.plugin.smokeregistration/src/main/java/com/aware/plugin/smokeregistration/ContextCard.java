@@ -40,6 +40,9 @@ public class ContextCard implements IContextCard {
             }
         });
 
+        adapter = new SmokeEventsAdapter(context, context.getContentResolver().query(Uri.parse("content://" + context.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.DATE + " DESC, " + Provider.Smoke_Events.TIME + " DESC"), true);
+        smoking_events.setAdapter(adapter);
+
         ViewGroup.LayoutParams params = smoking_events.getLayoutParams();
         params.height = 400;
         smoking_events.setLayoutParams(params);
