@@ -28,7 +28,6 @@ public class Smokeregistration_Sync extends Service {
                         Provider.DATABASE_TABLES, Provider.TABLES_FIELDS,
                         new Uri[]{
                                 Provider.Smoke_Events.CONTENT_URI,
-                                Provider.Smoke_Events.CONTENT_URI
                         }
                 );
             }
