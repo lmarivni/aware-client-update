@@ -3,6 +3,7 @@ package com.aware.plugin.smokeregistration;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -50,6 +51,10 @@ public class DateAndTimePicker extends FragmentActivity {
                 data.put(Provider.Smoke_Events.DATE, date.getText().toString());
                 data.put(Provider.Smoke_Events.TIME, time.getText().toString());
                 DateAndTimePicker.this.getContentResolver().insert(Provider.Smoke_Events.CONTENT_URI, data);
+                if (loadedDate.length() > 0 && loadedTime.length() > 0){
+                    DateAndTimePicker.this.getContentResolver().delete(Provider.Smoke_Events.CONTENT_URI, Provider.Smoke_Events.DATE + " LIKE '" + loadedDate + "' AND " + Provider.Smoke_Events.TIME + " LIKE '" + loadedTime + "'", null);
+                    //adapter.changeCursor(mContext.getContentResolver().query(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.DATE + " DESC, " + Provider.Smoke_Events.TIME + " DESC"));
+                }
                 finish();
             }
         });
