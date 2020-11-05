@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class Provider extends ContentProvider {
     public static String AUTHORITY = "com.aware.plugin.smokeregistration.provider.smokeregistration";
 
-    public static final int DATABASE_VERSION = 4; //increase this if you make changes to the database structure, i.e., rename columns, etc.
+    public static final int DATABASE_VERSION = 5; //increase this if you make changes to the database structure, i.e., rename columns, etc.
 
     public static final String DATABASE_NAME = "smoke_events.db"; //the database filename
 
@@ -39,7 +39,7 @@ public class Provider extends ContentProvider {
 
     //Put tables names in this array so AWARE knows what you have on the database
     public static final String[] DATABASE_TABLES = {
-            DB_TBL_SMOKE_EVENTS,
+            DB_TBL_SMOKE_EVENTS
 //            DB_TBL_SMOKE_EVENTS_DATA
     };
 
