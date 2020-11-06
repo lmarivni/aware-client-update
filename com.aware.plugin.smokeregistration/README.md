@@ -17,5 +17,5 @@ Field | Type | Description
 _id | INTEGER | primary key auto-incremented
 timestamp | REAL | unix timestamp in milliseconds of sample
 device_id | TEXT | AWARE device ID
-date | TEXT | date as set by user
-time | TEXT| time as set by user
+date_of_smoke_event | TEXT | date of smoke event as set by user
+time_of_smoke_event | TEXT| time of smoke event as set by user

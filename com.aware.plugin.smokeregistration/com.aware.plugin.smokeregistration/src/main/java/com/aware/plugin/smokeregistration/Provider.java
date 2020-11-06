@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class Provider extends ContentProvider {
     public static String AUTHORITY = "com.aware.plugin.smokeregistration.provider.smokeregistration";
 
-    public static final int DATABASE_VERSION = 5; //increase this if you make changes to the database structure, i.e., rename columns, etc.
+    public static final int DATABASE_VERSION = 6; //increase this if you make changes to the database structure, i.e., rename columns, etc.
 
     public static final String DATABASE_NAME = "smoke_events.db"; //the database filename
 
@@ -59,8 +59,8 @@ public class Provider extends ContentProvider {
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.aware.plugin.smokeregistration";
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.aware.plugin.smokeregistration";
 
-        public static final String DATE = "date";
-        public static final String TIME = "time";
+        public static final String DATE_OF_SMOKE_EVENT = "date_of_smoke_event";
+        public static final String TIME_OF_SMOKE_EVENT = "time_of_smoke_event";
     }
 
 //    public static final class Smoke_Events_Data implements AWAREColumns {
@@ -79,8 +79,8 @@ public class Provider extends ContentProvider {
             Smoke_Events._ID + " integer primary key autoincrement," +
                     Smoke_Events.TIMESTAMP + " real default 0," +
                     Smoke_Events.DEVICE_ID + " text default ''," +
-                    Smoke_Events.DATE + " text default ''," +
-                    Smoke_Events.TIME + " text default ''";
+                    Smoke_Events.DATE_OF_SMOKE_EVENT + " text default ''," +
+                    Smoke_Events.TIME_OF_SMOKE_EVENT + " text default ''";
 
 //    private static final String DB_TBL_SMOKE_EVENTS_DATA_FIELDS =
 //            Smoke_Events_Data._ID + " integer primary key autoincrement," +
@@ -137,8 +137,8 @@ public class Provider extends ContentProvider {
         seHash.put(Smoke_Events._ID, Smoke_Events._ID);
         seHash.put(Smoke_Events.TIMESTAMP, Smoke_Events.TIMESTAMP);
         seHash.put(Smoke_Events.DEVICE_ID, Smoke_Events.DEVICE_ID);
-        seHash.put(Smoke_Events.DATE, Smoke_Events.DATE);
-        seHash.put(Smoke_Events.TIME, Smoke_Events.TIME);
+        seHash.put(Smoke_Events.DATE_OF_SMOKE_EVENT, Smoke_Events.DATE_OF_SMOKE_EVENT);
+        seHash.put(Smoke_Events.TIME_OF_SMOKE_EVENT, Smoke_Events.TIME_OF_SMOKE_EVENT);
 
 //        seDataHash = new HashMap<>();
 //        seDataHash.put(Smoke_Events_Data._ID, Smoke_Events_Data._ID);

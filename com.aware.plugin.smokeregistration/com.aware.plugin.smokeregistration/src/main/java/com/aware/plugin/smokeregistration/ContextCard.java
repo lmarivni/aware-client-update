@@ -45,7 +45,7 @@ public class ContextCard implements IContextCard {
             }
         });
 
-        adapter = new SmokeEventsAdapter(context, context.getContentResolver().query(Uri.parse("content://" + context.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.DATE + " DESC, " + Provider.Smoke_Events.TIME + " DESC"), true);
+        adapter = new SmokeEventsAdapter(context, context.getContentResolver().query(Uri.parse("content://" + context.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " DESC, " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " DESC"), true);
         smoking_events.setAdapter(adapter);
 
         ViewGroup.LayoutParams params = smoking_events.getLayoutParams();
@@ -84,7 +84,7 @@ public class ContextCard implements IContextCard {
             final Button edit = (Button) view.findViewById(R.id.smoking_event_edit);
             final Button delete = (Button) view.findViewById(R.id.smoking_event_del);
 
-            final String labeltxt = cursor.getString(cursor.getColumnIndex(Provider.Smoke_Events.DATE)) + "\n" + cursor.getString(cursor.getColumnIndex(Provider.Smoke_Events.TIME));
+            final String labeltxt = cursor.getString(cursor.getColumnIndex(Provider.Smoke_Events.DATE_OF_SMOKE_EVENT)) + "\n" + cursor.getString(cursor.getColumnIndex(Provider.Smoke_Events.TIME_OF_SMOKE_EVENT));
             label.setText(labeltxt);
 
             edit.setOnClickListener(new View.OnClickListener() {
@@ -101,8 +101,8 @@ public class ContextCard implements IContextCard {
                 @Override
                 public void onClick(View v) {
                     final String lines[] = labeltxt.split("\n");
-                    mContext.getContentResolver().delete(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), Provider.Smoke_Events.DATE + " LIKE '" + lines[0] + "' AND " + Provider.Smoke_Events.TIME + " LIKE '" + lines[1] + "'", null);
-                    adapter.changeCursor(mContext.getContentResolver().query(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.DATE + " DESC, " + Provider.Smoke_Events.TIME + " DESC"));
+                    mContext.getContentResolver().delete(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " LIKE '" + lines[0] + "' AND " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " LIKE '" + lines[1] + "'", null);
+                    adapter.changeCursor(mContext.getContentResolver().query(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " DESC, " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " DESC"));
                 }
             });
         }
