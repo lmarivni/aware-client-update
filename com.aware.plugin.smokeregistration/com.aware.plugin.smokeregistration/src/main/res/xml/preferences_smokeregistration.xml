@@ -7,6 +7,7 @@
         android:key="status_plugin_smokeregistration"
         android:defaultValue="false"
         android:persistent="true"
-        android:summary="Activate/deactivate plugin" />
+        android:summary="Activate/deactivate plugin"
+        android:title="register smoking"/>
 
 </PreferenceScreen>
