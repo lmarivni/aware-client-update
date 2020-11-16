@@ -2,7 +2,7 @@
 <sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
     android:accountType="com.awareframework"
     android:allowParallelSyncs="true"
-    android:contentAuthority="com.aware.plugin.smokeregistration.provider.smokeregistration"
+    android:contentAuthority="@string/provider_smoke_registration"
     android:isAlwaysSyncable="true"
     android:supportsUploading="true"
     android:userVisible="true" />
