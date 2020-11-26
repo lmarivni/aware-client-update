@@ -20,7 +20,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change"
+        android:text="Wijzig"
         android:id="@+id/smoking_event_edit"
         android:textColor="#FFF"
         android:background="#33B5E5"
