@@ -1,9 +1,12 @@
 package com.aware.plugin.smokeregistration;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +16,8 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.aware.Aware;
+import com.aware.Aware_Preferences;
 import com.aware.utils.IContextCard;
 
 import java.text.ParseException;
@@ -45,7 +50,7 @@ public class ContextCard implements IContextCard {
             }
         });
 
-        adapter = new SmokeEventsAdapter(context, context.getContentResolver().query(Uri.parse("content://" + context.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " DESC, " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " DESC"), true);
+        adapter = new SmokeEventsAdapter(context, context.getContentResolver().query(Uri.parse("content://" + context.getPackageName() + ".provider.smokeregistration/smoke_events"), null, Provider.Smoke_Events.IS_DELETED + " = 0", null, Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " DESC, " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " DESC"), true);
         smoking_events.setAdapter(adapter);
 
         ViewGroup.LayoutParams params = smoking_events.getLayoutParams();
@@ -101,8 +106,20 @@ public class ContextCard implements IContextCard {
                 @Override
                 public void onClick(View v) {
                     final String lines[] = labeltxt.split("\n");
-                    mContext.getContentResolver().delete(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " LIKE '" + lines[0] + "' AND " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " LIKE '" + lines[1] + "'", null);
-                    adapter.changeCursor(mContext.getContentResolver().query(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " DESC, " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " DESC"));
+                    //delete row from view
+                    final int count = mContext.getContentResolver().delete(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " LIKE '" + lines[0] + "' AND " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " LIKE '" + lines[1] + "' AND " + Provider.Smoke_Events.IS_DELETED + " = 0", null);
+                    //add row in database with same content but is_deleted = 1
+                    ContentValues data = new ContentValues();
+                    data.put(Provider.Smoke_Events.DEVICE_ID, Aware.getSetting(mContext, Aware_Preferences.DEVICE_ID));
+                    data.put(Provider.Smoke_Events.TIMESTAMP, System.currentTimeMillis());
+                    data.put(Provider.Smoke_Events.DATE_OF_SMOKE_EVENT, lines[0]);
+                    data.put(Provider.Smoke_Events.TIME_OF_SMOKE_EVENT, lines[1]);
+                    data.put(Provider.Smoke_Events.IS_DELETED, true);
+                    for (int i = count; i != 0; i--) {
+                        mContext.getContentResolver().insert(Provider.Smoke_Events.CONTENT_URI, data);
+                    }
+                    //view rows if is_deleted != 1
+                    adapter.changeCursor(mContext.getContentResolver().query(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), null, Provider.Smoke_Events.IS_DELETED + " = 0", null, Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " DESC, " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " DESC"));
                 }
             });
         }

@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class Provider extends ContentProvider {
     public static String AUTHORITY = "com.aware.plugin.smokeregistration.provider.smokeregistration";
 
-    public static final int DATABASE_VERSION = 6; //increase this if you make changes to the database structure, i.e., rename columns, etc.
+    public static final int DATABASE_VERSION = 7; //increase this if you make changes to the database structure, i.e., rename columns, etc.
 
     public static final String DATABASE_NAME = "smoke_events.db"; //the database filename
 
@@ -61,6 +61,7 @@ public class Provider extends ContentProvider {
 
         public static final String DATE_OF_SMOKE_EVENT = "date_of_smoke_event";
         public static final String TIME_OF_SMOKE_EVENT = "time_of_smoke_event";
+        public static final String IS_DELETED = "is_deleted";
     }
 
 //    public static final class Smoke_Events_Data implements AWAREColumns {
@@ -80,7 +81,8 @@ public class Provider extends ContentProvider {
                     Smoke_Events.TIMESTAMP + " real default 0," +
                     Smoke_Events.DEVICE_ID + " text default ''," +
                     Smoke_Events.DATE_OF_SMOKE_EVENT + " text default ''," +
-                    Smoke_Events.TIME_OF_SMOKE_EVENT + " text default ''";
+                    Smoke_Events.TIME_OF_SMOKE_EVENT + " text default ''," +
+                    Smoke_Events.IS_DELETED + " integer default 0";
 
 //    private static final String DB_TBL_SMOKE_EVENTS_DATA_FIELDS =
 //            Smoke_Events_Data._ID + " integer primary key autoincrement," +
@@ -139,6 +141,7 @@ public class Provider extends ContentProvider {
         seHash.put(Smoke_Events.DEVICE_ID, Smoke_Events.DEVICE_ID);
         seHash.put(Smoke_Events.DATE_OF_SMOKE_EVENT, Smoke_Events.DATE_OF_SMOKE_EVENT);
         seHash.put(Smoke_Events.TIME_OF_SMOKE_EVENT, Smoke_Events.TIME_OF_SMOKE_EVENT);
+        seHash.put(Smoke_Events.IS_DELETED, Smoke_Events.IS_DELETED);
 
 //        seDataHash = new HashMap<>();
 //        seDataHash.put(Smoke_Events_Data._ID, Smoke_Events_Data._ID);
@@ -189,11 +192,11 @@ public class Provider extends ContentProvider {
             //Add each table DIR case
             case SE_DIR:
                 long _id = database.insert(DATABASE_TABLES[0], Smoke_Events.DEVICE_ID, values);
-                database.setTransactionSuccessful();
-                database.endTransaction();
                 if (_id > 0) {
                     Uri dataUri = ContentUris.withAppendedId(Smoke_Events.CONTENT_URI, _id);
                     getContext().getContentResolver().notifyChange(dataUri, null);
+                    database.setTransactionSuccessful();
+                    database.endTransaction();
                     return dataUri;
                 }
                 database.endTransaction();

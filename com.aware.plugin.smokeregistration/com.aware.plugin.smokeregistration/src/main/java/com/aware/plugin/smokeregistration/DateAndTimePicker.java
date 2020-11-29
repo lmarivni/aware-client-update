@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.aware.Aware;
 import com.aware.Aware_Preferences;
 
+import java.sql.Date;
 import java.util.Calendar;
 
 public class DateAndTimePicker extends FragmentActivity {
@@ -27,8 +28,8 @@ public class DateAndTimePicker extends FragmentActivity {
     Button btnOK, btnCancel;
     EditText time, date;
 
-    static String loadedDate = "";
-    static String loadedTime = "";
+    String loadedDate = "";
+    String loadedTime = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,14 +46,29 @@ public class DateAndTimePicker extends FragmentActivity {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Create new value
                 ContentValues data = new ContentValues();
                 data.put(Provider.Smoke_Events.DEVICE_ID, Aware.getSetting(DateAndTimePicker.this, Aware_Preferences.DEVICE_ID));
                 data.put(Provider.Smoke_Events.TIMESTAMP, System.currentTimeMillis());
                 data.put(Provider.Smoke_Events.DATE_OF_SMOKE_EVENT, date.getText().toString());
                 data.put(Provider.Smoke_Events.TIME_OF_SMOKE_EVENT, time.getText().toString());
+                data.put(Provider.Smoke_Events.IS_DELETED, false);
+                //Insert new value in database and view
                 DateAndTimePicker.this.getContentResolver().insert(Provider.Smoke_Events.CONTENT_URI, data);
+                //Check if edit operation
                 if (loadedDate.length() > 0 && loadedTime.length() > 0){
-                    DateAndTimePicker.this.getContentResolver().delete(Provider.Smoke_Events.CONTENT_URI, Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " LIKE '" + loadedDate + "' AND " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " LIKE '" + loadedTime + "'", null);
+                    //Delete old row from view
+                    final int count = DateAndTimePicker.this.getContentResolver().delete(Provider.Smoke_Events.CONTENT_URI, Provider.Smoke_Events.DATE_OF_SMOKE_EVENT + " LIKE '" + loadedDate + "' AND " + Provider.Smoke_Events.TIME_OF_SMOKE_EVENT + " LIKE '" + loadedTime + "' AND " + Provider.Smoke_Events.IS_DELETED + " = 0", null);
+                    //Insert new row in database with old data and is_deleted = 1
+                    ContentValues data_old = new ContentValues();
+                    data_old.put(Provider.Smoke_Events.DEVICE_ID, Aware.getSetting(DateAndTimePicker.this, Aware_Preferences.DEVICE_ID));
+                    data_old.put(Provider.Smoke_Events.TIMESTAMP, System.currentTimeMillis());
+                    data_old.put(Provider.Smoke_Events.DATE_OF_SMOKE_EVENT, loadedDate);
+                    data_old.put(Provider.Smoke_Events.TIME_OF_SMOKE_EVENT, loadedTime);
+                    data_old.put(Provider.Smoke_Events.IS_DELETED, true);
+                    for (int i = count; i != 0; i--) {
+                        DateAndTimePicker.this.getContentResolver().insert(Provider.Smoke_Events.CONTENT_URI, data_old);
+                    }
                     //adapter.changeCursor(mContext.getContentResolver().query(Uri.parse("content://" + mContext.getPackageName() + ".provider.smokeregistration/smoke_events"), null, null, null, Provider.Smoke_Events.DATE + " DESC, " + Provider.Smoke_Events.TIME + " DESC"));
                 }
                 finish();
