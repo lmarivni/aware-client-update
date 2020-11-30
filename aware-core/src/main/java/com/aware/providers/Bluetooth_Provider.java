@@ -28,7 +28,7 @@ import java.util.HashMap;
  */
 public class Bluetooth_Provider extends ContentProvider {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     /**
      * Authority of Bluetooth content provider
@@ -60,7 +60,6 @@ public class Bluetooth_Provider extends ContentProvider {
         public static final String TIMESTAMP = "timestamp";
         public static final String DEVICE_ID = "device_id";
         public static final String BT_ADDRESS = "bt_address";
-        public static final String BT_NAME = "bt_name";
     }
 
     /**
@@ -80,7 +79,6 @@ public class Bluetooth_Provider extends ContentProvider {
         public static final String TIMESTAMP = "timestamp";
         public static final String DEVICE_ID = "device_id";
         public static final String BT_ADDRESS = "bt_address";
-        public static final String BT_NAME = "bt_name";
         public static final String BT_RSSI = "bt_rssi";
         public static final String BT_LABEL = "label";
     }
@@ -94,14 +92,12 @@ public class Bluetooth_Provider extends ContentProvider {
             Bluetooth_Sensor._ID + " integer primary key autoincrement,"
                     + Bluetooth_Sensor.TIMESTAMP + " real default 0,"
                     + Bluetooth_Sensor.DEVICE_ID + " text default '',"
-                    + Bluetooth_Sensor.BT_ADDRESS + " text default '',"
-                    + Bluetooth_Sensor.BT_NAME + " text default ''",
+                    + Bluetooth_Sensor.BT_ADDRESS + " text default ''",
             // data
             Bluetooth_Data._ID + " integer primary key autoincrement,"
                     + Bluetooth_Data.TIMESTAMP + " real default 0,"
                     + Bluetooth_Data.DEVICE_ID + " text default '',"
                     + Bluetooth_Data.BT_ADDRESS + " text default '',"
-                    + Bluetooth_Data.BT_NAME + " text default '',"
                     + Bluetooth_Data.BT_RSSI + " integer default 0,"
                     + Bluetooth_Data.BT_LABEL + " text default ''"
     };
@@ -183,8 +179,7 @@ public class Bluetooth_Provider extends ContentProvider {
 
         switch (sUriMatcher.match(uri)) {
             case BT_DEV:
-                long rowId = database.insertWithOnConflict(DATABASE_TABLES[0],
-                        Bluetooth_Sensor.BT_NAME, values, SQLiteDatabase.CONFLICT_IGNORE);
+                long rowId = database.insertWithOnConflict(DATABASE_TABLES[0], null,  values, SQLiteDatabase.CONFLICT_IGNORE);
                 database.setTransactionSuccessful();
                 database.endTransaction();
                 if (rowId > 0) {
@@ -196,8 +191,7 @@ public class Bluetooth_Provider extends ContentProvider {
                 database.endTransaction();
                 throw new SQLException("Failed to insert row into " + uri);
             case BT_DATA:
-                long btId = database.insertWithOnConflict(DATABASE_TABLES[1],
-                        Bluetooth_Data.BT_NAME, values, SQLiteDatabase.CONFLICT_IGNORE);
+                long btId = database.insertWithOnConflict(DATABASE_TABLES[1], null, values, SQLiteDatabase.CONFLICT_IGNORE);
                 database.setTransactionSuccessful();
                 database.endTransaction();
                 if (btId > 0) {
@@ -246,8 +240,6 @@ public class Bluetooth_Provider extends ContentProvider {
                 Bluetooth_Sensor.DEVICE_ID);
         bluetoothDeviceMap.put(Bluetooth_Sensor.BT_ADDRESS,
                 Bluetooth_Sensor.BT_ADDRESS);
-        bluetoothDeviceMap.put(Bluetooth_Sensor.BT_NAME,
-                Bluetooth_Sensor.BT_NAME);
 
         bluetoothDataMap = new HashMap<String, String>();
         bluetoothDataMap.put(Bluetooth_Data._ID, Bluetooth_Data._ID);
@@ -257,7 +249,6 @@ public class Bluetooth_Provider extends ContentProvider {
                 .put(Bluetooth_Data.DEVICE_ID, Bluetooth_Data.DEVICE_ID);
         bluetoothDataMap.put(Bluetooth_Data.BT_ADDRESS,
                 Bluetooth_Data.BT_ADDRESS);
-        bluetoothDataMap.put(Bluetooth_Data.BT_NAME, Bluetooth_Data.BT_NAME);
         bluetoothDataMap.put(Bluetooth_Data.BT_RSSI, Bluetooth_Data.BT_RSSI);
         bluetoothDataMap.put(Bluetooth_Data.BT_LABEL, Bluetooth_Data.BT_LABEL);
 

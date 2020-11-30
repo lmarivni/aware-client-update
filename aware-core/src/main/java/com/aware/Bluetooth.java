@@ -284,7 +284,6 @@ public class Bluetooth extends Aware_Sensor {
             rowData.put(Bluetooth_Data.DEVICE_ID, Aware.getSetting(getApplicationContext(), Aware_Preferences.DEVICE_ID));
             rowData.put(Bluetooth_Data.TIMESTAMP, System.currentTimeMillis());
             rowData.put(Bluetooth_Data.BT_ADDRESS, Encrypter.hashMac(getApplicationContext(), bluetoothDevice.getAddress()));
-            rowData.put(Bluetooth_Data.BT_NAME, Encrypter.hashSsid(getApplicationContext(), bluetoothDevice.getName()));
             rowData.put(Bluetooth_Data.BT_RSSI, result.getRssi());
             rowData.put(Bluetooth_Data.BT_LABEL, scanTimestamp);
 
@@ -377,7 +376,6 @@ public class Bluetooth extends Aware_Sensor {
                 rowData.put(Bluetooth_Data.DEVICE_ID, Aware.getSetting(context, Aware_Preferences.DEVICE_ID));
                 rowData.put(Bluetooth_Data.TIMESTAMP, System.currentTimeMillis());
                 rowData.put(Bluetooth_Data.BT_ADDRESS, Encrypter.hashMac(context, btDevice.getAddress()));
-                rowData.put(Bluetooth_Data.BT_NAME, Encrypter.hashSsid(context, btDevice.getName()));
                 rowData.put(Bluetooth_Data.BT_RSSI, btDeviceRSSI);
                 rowData.put(Bluetooth_Data.BT_LABEL, scanTimestamp);
 
@@ -442,7 +440,6 @@ public class Bluetooth extends Aware_Sensor {
                         ContentValues rowData = new ContentValues();
                         rowData.put(Bluetooth_Data.DEVICE_ID, Aware.getSetting(context, Aware_Preferences.DEVICE_ID));
                         rowData.put(Bluetooth_Data.TIMESTAMP, System.currentTimeMillis());
-                        rowData.put(Bluetooth_Data.BT_NAME, "disabled");
                         rowData.put(Bluetooth_Data.BT_ADDRESS, "disabled");
                         rowData.put(Bluetooth_Data.BT_LABEL, "disabled");
                         try {
@@ -472,7 +469,6 @@ public class Bluetooth extends Aware_Sensor {
             rowData.put(Bluetooth_Sensor.TIMESTAMP, System.currentTimeMillis());
             rowData.put(Bluetooth_Sensor.DEVICE_ID, Aware.getSetting(getApplicationContext(), Aware_Preferences.DEVICE_ID));
             rowData.put(Bluetooth_Sensor.BT_ADDRESS, Encrypter.hashMac(getApplicationContext(), btAdapter.getAddress()));
-            rowData.put(Bluetooth_Sensor.BT_NAME, Encrypter.hashSsid(getApplicationContext(), btAdapter.getName()));
 
             getContentResolver().insert(Bluetooth_Sensor.CONTENT_URI, rowData);
 
