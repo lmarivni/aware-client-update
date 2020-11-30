@@ -90,10 +90,18 @@ public class DateAndTimePicker extends FragmentActivity {
         } else {
             int hour = cldr.get(Calendar.HOUR_OF_DAY);
             int minutes = cldr.get(Calendar.MINUTE);
-            if (minutes < 10) {
-                time.setText(hour + ":0" + minutes);
+            if (hour < 10) {
+                if (minutes < 10) {
+                    time.setText("0" + hour + ":0" + minutes);
+                } else {
+                    time.setText("0" + hour + ":" + minutes);
+                }
             } else {
-                time.setText(hour + ":" + minutes);
+                if (minutes < 10) {
+                    time.setText(hour + ":0" + minutes);
+                } else {
+                    time.setText(hour + ":" + minutes);
+                }
             }
         }
         time.setOnClickListener(new View.OnClickListener() {
